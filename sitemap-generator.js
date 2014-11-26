@@ -47,46 +47,8 @@ console.log(' get keys ='.red, plucked);
 
 
 
-  // var t1 = trends[0]
-
-  // console.log(' t1  ==', t1);
-
-  // var picked =   _.pick(trends, '_id');
-  // // var plucked =  _.pluck(trends, 'tName');
-
-  // console.log(' picked -----> ', picked);
-
-
-
-  // console.log('movies  =', movies); 
-
-
-    // var pluck =  _.pluck(movies, 'title');
-    // var test = 'test';
-    // return pluck
-    // console.log('pluck ', pluck);
-    // console.log(' pluck [0] =', pluck[0]);
-
-// var su =  []; 
-
-//     for (var i = 0; i < pluck.length; i++) {
-
-//      var val =  { url: pluck[i],  changefreq: 'daily', priority: 0.3 }; 
-//      su.push(val); 
-//     };
-//       console.log(' su =',su);    
-
-// return su; 
 });
 
-
-
-  // console.log(' outside Movie fun findmov = '.white, findmov);
-
-  // console.log(' outside Movie fun findmov dot = '.red, findmov.mongooseCollection);
-
-  // var pluck =  _.pluck(findmov, '_mongooseOptions');
-  // console.log(' pluck  64 ='.red, pluck);
 
 
   var changefreq_value = 'daily';
