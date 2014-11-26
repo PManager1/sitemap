@@ -1,14 +1,15 @@
 module.exports = function(width) {
 
 
-var yourGlobalVariable = 'helo'; 
-
 
 var mongoose = require('mongoose');
 var _ = require('underscore'); 
 var colors = require('colors')
 
-console.log('underscore =', _);
+
+console.log( '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.white);
+
+
 var db = mongoose.connection;
 
 db.on('error', console.error);
@@ -16,52 +17,77 @@ db.once('open', function() {
   console.log(' db opened');
 });
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/news');
+
+
+
+var trendSchema = mongoose.Schema({
+    tName: String,
+    tName_h: String,    
+    region: String
+  });
 
 
 
 
-var movieSchema = new mongoose.Schema({
-  title: { type: String }
-, rating: String
-, releaseYear: Number
-, hasCreditCookie: Boolean
-});
+var Trend = mongoose.model('Trend', trendSchema);
 
-
-var Movie = mongoose.model('Movie3', movieSchema);
-
-
-var mo ; 
-
-
-
-Movie.find(function(err, movies) {
+var findmov = Trend.find(function(err, trends) {
   if (err) return console.error(err);
-  console.dir(movies);
-  console.log('movies  =', movies); 
-  mo = movies; 
+  // console.dir(trends);
 
-  console.log('underscore  ~~~',_);
-
-    var pluck =  _.pluck(movies, 'title');
-    console.log('pluck ', pluck);
-    console.log(' pluck [0] =', pluck[0]);
+  console.log(' trends  ==', trends);
+  // console.log(' trends1  ==', trends[1]);
 
 
-    for (var i = 0; i < pluck.length; i++) {
 
-     var su =  { url: pluck[i],  changefreq: 'daily', priority: 0.3 }; 
-      console.log(' su =',su);
-      yourGlobalVariable = su; 
-    };
 
-console.log(' inside Movie fun yourGlobalVariable = '.white, yourGlobalVariable);
-console.log('Find all movies ='.red, mo);  
+var plucked = _.pluck(trends, 'tName');
+console.log(' get keys ='.red, plucked);
+
+
+
+  // var t1 = trends[0]
+
+  // console.log(' t1  ==', t1);
+
+  // var picked =   _.pick(trends, '_id');
+  // // var plucked =  _.pluck(trends, 'tName');
+
+  // console.log(' picked -----> ', picked);
+
+
+
+  // console.log('movies  =', movies); 
+
+
+    // var pluck =  _.pluck(movies, 'title');
+    // var test = 'test';
+    // return pluck
+    // console.log('pluck ', pluck);
+    // console.log(' pluck [0] =', pluck[0]);
+
+// var su =  []; 
+
+//     for (var i = 0; i < pluck.length; i++) {
+
+//      var val =  { url: pluck[i],  changefreq: 'daily', priority: 0.3 }; 
+//      su.push(val); 
+//     };
+//       console.log(' su =',su);    
+
+// return su; 
 });
 
 
-  console.log(' outside Movie fun yourGlobalVariable = '.white, yourGlobalVariable);
+
+  // console.log(' outside Movie fun findmov = '.white, findmov);
+
+  // console.log(' outside Movie fun findmov dot = '.red, findmov.mongooseCollection);
+
+  // var pluck =  _.pluck(findmov, '_mongooseOptions');
+  // console.log(' pluck  64 ='.red, pluck);
+
 
   var changefreq_value = 'daily';
   var priority_value = '0.3';     
