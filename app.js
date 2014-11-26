@@ -35,7 +35,7 @@ console.log('The area of my square is  ' + mySquare.sitemapUrls());
 
 
 var sitemap = sm.createSitemap ({
-      hostname: 'http://example.com',
+      hostname: 'http://rushnwash.com',
       cacheTime: 600000,       
        urls: mySquare.sitemapUrls()
     });
@@ -49,7 +49,7 @@ app.get('/sitemap.xml', function(req, res) {
 
 
 
-sitemap.urls.push({ url: '/page-5/' });
+sitemap.urls.push({ url: '/page-5/', changefreq: 'daily', priority: 0.3 });
 
 console.log(' app.js  sitemap.urls == ', sitemap.urls);
 
