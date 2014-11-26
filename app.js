@@ -15,14 +15,29 @@ var app = express();
 
 
 
+
+console.log('~~~~~~~~~~~~~~~~~~~~~~~');
+
+var square = require('./sitemap-generator.js');
+// var mysitemap_generator = square(5);
+
+
+
+// var square = require('./square.js');
+var mySquare = square(2);
+console.log('The area of my square is  ' + mySquare.sitemapUrls());
+
+
+
+
+// console.log('~~~~~~~~~~~~~~~~~~~~~~~ ',mysitemap_generator);
+
+
+
 var sitemap = sm.createSitemap ({
       hostname: 'http://example.com',
-      cacheTime: 600000,        // 600 sec - cache purge period
-      urls: [
-        { url: '/page-1/',  changefreq: 'daily', priority: 0.3 },
-        { url: '/page-2/',  changefreq: 'monthly',  priority: 0.7 },
-        { url: '/page-3/' }     // changefreq: 'weekly',  priority: 0.5
-      ]
+      cacheTime: 600000,       
+       urls: mySquare.sitemapUrls()
     });
 
 app.get('/sitemap.xml', function(req, res) {
@@ -34,7 +49,9 @@ app.get('/sitemap.xml', function(req, res) {
 
 
 
+sitemap.urls.push({ url: '/page-5/' });
 
+console.log(' app.js  sitemap.urls == ', sitemap.urls);
 
 
 
