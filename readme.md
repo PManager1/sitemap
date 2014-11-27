@@ -1,5 +1,3 @@
-
-
-https://www.npmjs.org/package/grunt-sitemap
+#readme just run this command once for your mongo to get trends #db. 
 
 

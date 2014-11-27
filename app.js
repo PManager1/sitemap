@@ -4,6 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var _ = require('underscore');
+
 
 var sm = require('sitemap');
 
@@ -18,40 +21,98 @@ var app = express();
 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~');
 
-var square = require('./sitemap-generator.js');
-// var mysitemap_generator = square(5);
+app.get('/sitemap.xml', function(req, res) {
+  res.header('Content-Type', 'application/xml');
+  res.send( sitemap.toString() );
+});
+
+
+// var sitemap = sm.createSitemap ({
+//       hostname: 'http://example.com',
+//       cacheTime: 600000
+//     });
+// sitemap.add({url: '/page-1/'});
+// sitemap.add({url: '/page-2/', changefreq: 'monthly', priority: 0.7});
+// sitemap.add({url: '/page-4/', changefreq: 'monthly', priority: 0.7});
 
 
 
-// var square = require('./square.js');
-var mySquare = square(2);
-console.log('The area of my square is  ' + mySquare.sitemapUrls());
 
 
 
 
-// console.log('~~~~~~~~~~~~~~~~~~~~~~~ ',mysitemap_generator);
 
+
+var db = mongoose.connection;
+
+db.on('error', console.error);
+db.once('open', function() {
+  console.log(' db opened');
+});
+
+mongoose.connect('mongodb://localhost/news');
+
+
+
+var trendSchema = mongoose.Schema({
+    tName: String,
+    tName_h: String,    
+    region: String
+  });
+
+
+
+
+var Trend = mongoose.model('Trend', trendSchema);
+
+var findmov = Trend.find(function(err, trends) {
+  if (err) return console.error(err);
+  // console.dir(trends);
+
+
+
+// sitemap.add({url: '/page-23/', changefreq: 'monthly', priority: 0.7});
+// sitemap.add({url: '/page-45/', changefreq: 'monthly', priority: 0.7});
+
+
+setTimeout(function(){
 
 
 var sitemap = sm.createSitemap ({
-      hostname: 'http://rushnwash.com',
-      cacheTime: 600000,       
-       urls: mySquare.sitemapUrls()
+      hostname: 'http://example.com',
+      cacheTime: 600
     });
+sitemap.add({url: '/page-1/'});
+sitemap.add({url: '/page-2/', changefreq: 'monthly', priority: 0.7});
+sitemap.add({url: '/page-4/', changefreq: 'monthly', priority: 0.7});
 
-app.get('/sitemap.xml', function(req, res) {
-  sitemap.toXML( function (xml) {
-      res.header('Content-Type', 'application/xml');
-      res.send( xml );
-  });
+
+}, 3000);
+
+
+
+
+  console.log(' trends  ==', trends);
+  // console.log(' trends1  ==', trends[1]);
+
+
+
+
+var plucked = _.pluck(trends, 'tName');
+console.log(' get keys ='.red, plucked);
+
+
+
+
+
+
+
+
+
 });
 
 
 
-sitemap.urls.push({ url: '/page-5/', changefreq: 'daily', priority: 0.3 });
-
-console.log(' app.js  sitemap.urls == ', sitemap.urls);
 
 
 
@@ -60,7 +121,7 @@ console.log(' app.js  sitemap.urls == ', sitemap.urls);
 
 
 
-
+console.log('~~~~~~~~~~~~~~~~~~~~~~~ ');
 
 
 
